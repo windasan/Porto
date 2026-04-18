@@ -1,0 +1,130 @@
+/*
+ * app/globals.css
+ *
+ * Tailwind directives + CSS custom properties (design tokens).
+ * ─────────────────────────────────────────────────────────────────────────────
+ * The semantic color tokens defined here are consumed by Tailwind via the
+ * `var(--...)` references in tailwind.config.ts.  Changing a theme is a
+ * single-layer swap — no component code changes required.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base layer: CSS custom properties ──────────────────────────────────── */
+@layer base {
+
+  /* ── LIGHT MODE (default) ─────────────────────────────────────────────── */
+  :root {
+    /* Surfaces */
+    --color-surface:         #ffffff;
+    --color-surface-raised:  #f7f7f7;
+    --color-surface-overlay: #f0f0f0;
+
+    /* Text */
+    --color-text-primary:    #111111;
+    --color-text-secondary:  #444444;
+    --color-text-muted:      #888888;
+
+    /* Accent — a neutral near-black that works in both themes */
+    --color-accent:          #111111;
+    --color-accent-hover:    #333333;
+
+    /* Borders */
+    --color-border:          #e2e2e2;
+    --color-border-subtle:   #efefef;
+  }
+
+  /* ── DARK MODE ────────────────────────────────────────────────────────── */
+  /* Applied when next-themes adds class="dark" to <html> */
+  .dark {
+    /* Surfaces — anchored to brand charcoal #21252a */
+    --color-surface:         #21252a;   /* ← brand dark background */
+    --color-surface-raised:  #2d3138;   /* card / panel surfaces   */
+    --color-surface-overlay: #3f4650;   /* dropdowns / modals      */
+
+    /* Text */
+    --color-text-primary:    #f0f0f0;
+    --color-text-secondary:  #a8b0bb;
+    --color-text-muted:      #5d6978;
+
+    /* Accent */
+    --color-accent:          #f0f0f0;
+    --color-accent-hover:    #ffffff;
+
+    /* Borders */
+    --color-border:          #2d3138;
+    --color-border-subtle:   #252930;
+  }
+
+  /* ── Global resets ────────────────────────────────────────────────────── */
+  * {
+    @apply border-border;
+  }
+
+  html {
+    /* Smooth scrolling for anchor links */
+    scroll-behavior: smooth;
+    /* Prevent layout shift when scrollbar appears */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply bg-surface text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* ── Typography resets ───────────────────────────────────────────────── */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-primary font-semibold tracking-tight;
+  }
+
+  p {
+    @apply text-secondary leading-relaxed;
+  }
+
+  a {
+    @apply text-primary underline-offset-4 transition-colors duration-150;
+  }
+
+  code {
+    @apply font-mono text-sm;
+  }
+
+  /* ── Scrollbar styling (Webkit) ──────────────────────────────────────── */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-charcoal-600 rounded-full;
+  }
+}
+
+/* ── Utility layer: reusable component patterns ─────────────────────────── */
+@layer utilities {
+  /* Readable prose column — centers content and constrains width */
+  .prose-layout {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6;
+  }
+
+  /* Wide grid layout — for project grids, dashboard, etc. */
+  .wide-layout {
+    @apply mx-auto w-full max-w-wide px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Subtle divider */
+  .divider {
+    @apply border-t border-border-subtle my-8;
+  }
+}
