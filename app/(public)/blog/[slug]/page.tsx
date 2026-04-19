@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/Badge";
 import type { Post } from "@/lib/types";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 
+
 // ── Static params for build-time pre-rendering ─────────────────────────────
 export async function generateStaticParams() {
   // Gunakan client standar TANPA cookies, khusus untuk proses build
