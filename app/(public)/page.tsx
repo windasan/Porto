@@ -84,7 +84,7 @@ export default async function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                cyborged.web.id
+                cyblio.cyborged.web.id
               </a>
               .
             </p>
