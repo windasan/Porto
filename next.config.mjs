@@ -7,10 +7,31 @@ const config = {
   images: {
     remotePatterns: [
       {
-        // Supabase Storage (project images)
+        // Supabase Storage
         protocol: "https",
         hostname: "*.supabase.co",
         pathname: "/storage/v1/object/public/**",
+      },
+      {
+        // Malasngoding
+        protocol: 'https',
+        hostname: 'www.malasngoding.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        // Stokcoding
+        protocol: 'https',
+        hostname: 'stokcoding.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        // TAMBAHKAN INI: Domain BCA Pustaka
+        protocol: 'https',
+        hostname: 'pustaka.bca.co.id',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
@@ -20,8 +41,6 @@ const config = {
 
   // ── Experimental ────────────────────────────────────────────────────────
   experimental: {
-    // Server Actions are stable in Next 14, but typedRoutes helps catch
-    // broken links at build time (opt-in)
     typedRoutes: true,
   },
 };

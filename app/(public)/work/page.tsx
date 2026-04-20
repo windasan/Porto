@@ -41,7 +41,7 @@ export default async function WorkPage() {
   const rest      = projects.filter((p) => !p.featured);
 
   return (
-    <div className="prose-layout py-16 md:py-24">
+    <div className="prose-layout py-16 md:py-20">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <header className="mb-14 animate-fade-up">
