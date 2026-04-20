@@ -23,9 +23,9 @@ interface Post {
 }
 
 const SOCIAL_LINKS = [
-  { href: "https://github.com/yourusername",   label: "GitHub",   icon: Github   },
-  { href: "https://twitter.com/yourhandle",    label: "Twitter",  icon: Twitter  },
-  { href: "https://linkedin.com/in/yourname",  label: "LinkedIn", icon: Linkedin },
+  { href: "https://github.com/windasan",   label: "GitHub",   icon: Github   },
+  { href: "https://twitter.com/",    label: "Twitter",  icon: Twitter  },
+  { href: "https://linkedin.com/in/",  label: "LinkedIn", icon: Linkedin },
 ] as const;
 
 // ── Data Fetching dari Supabase ───────────────────────────────────────────────
@@ -77,8 +77,7 @@ export default async function HomePage() {
             </h1>
 
             <p className="mt-4 max-w-xl text-lg text-muted leading-relaxed">
-              Full-stack developer crafting thoughtful, performant web experiences.
-              Currently building at{" "}
+             Dedicated to crafting unique, high-performance web applications. I focus on utility and experience—here is a prime example of my work. {" "}
               <a
                 href="https://cyborged.web.id"
                 className="text-primary underline decoration-border underline-offset-4 hover:decoration-primary transition-all"
@@ -123,22 +122,40 @@ export default async function HomePage() {
           </div>
 
           {/* Kolom Foto (Pop-out Avatar) */}
-         <div className="relative w-40 h-40 sm:w-48 sm:h-48 shrink-0 mb-4 sm:mb-0 self-start sm:self-center">
-          {/* 1. Lingkaran Background (Tetap sama) */}
-          <div className="absolute bottom-0 w-full h-full rounded-full bg-gradient-to-tr from-blue-500/20 to-transparent border border-black/10 dark:border-white/10" />
-          
-          {/* 2. Foto Profil (Diperbesar) */}
-          <Image
-            src="/image/profil_pic.png" 
-            alt="Profile Photo"
-            width={400} 
-            height={400}
-            priority
-            className="absolute bottom-0 left-1/2 w-[130%] max-w-none -translate-x-1/2 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
-            // Tinggi dibuat 140% agar kepala melewati batas atas lingkaran
-            style={{ height: "145%" }} 
-          />
-        </div>
+    <div className="relative w-40 h-40 sm:w-48 sm:h-48 shrink-0 mb-4 sm:mb-0 self-start sm:self-center mt-8 sm:mt-0">
+  {/* 1. Lingkaran Background (Sama) */}
+  <div className="absolute bottom-1 w-full h-full rounded-full bg-gradient-to-tr from-blue-500/20 to-transparent border border-black/10 dark:border-white/10" />
+
+  {/* --- Wadah untuk Gambar (Tanpa Shadow) --- */}
+  <div
+    className={[
+      "absolute bottom-0 left-1/2 -translate-x-1/2 max-w-none object-contain",
+      "hover:scale-105 transition-transform duration-500", // Hover effect tetap di sini
+      // Responsive Scaling (Sama)
+      "w-[115%] h-[120%]",
+      "sm:w-[130%] sm:h-[145%]"
+    ].join(" ")}
+  >
+    {/* 2. Foto Profil (Image element) */}
+   <Image
+      src="/image/profil_pic.png"
+      alt="Profile Photo"
+      width={400}
+      height={400}
+      priority
+      className={[
+        "absolute inset-0 w-full h-full object-contain",
+        
+        // Pilihan 1: Pakai bawaan Tailwind (Lebih praktis, bayangan cukup besar dan tebal)
+        // "drop-shadow-2xl", 
+
+        // Pilihan 2: Jika masih kurang pas, matikan baris di atas, 
+        // dan nyalakan (uncomment) baris di bawah ini untuk custom yang lebih tebal:
+        "drop-shadow-[4px_8px_8px_rgba(0,0,0,0.6)]", 
+      ].join(" ")}
+    />
+  </div>
+</div>
 
         </div>
       </section>

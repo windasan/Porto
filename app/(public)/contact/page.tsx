@@ -21,27 +21,27 @@ export const metadata: Metadata = {
 
 const SOCIAL_LINKS = [
   {
-    href:  "mailto:you@example.com",
+    href:  "mailto:cyborged30s@gmail.com",
     label: "Email",
-    handle:"you@example.com",
+    handle:"cyborged30s@gmail.com",
     icon:  Mail,
   },
   {
-    href:  "https://github.com/yourusername",
+    href:  "https://github.com/windasan",
     label: "GitHub",
-    handle:"@yourusername",
+    handle:"@windasan",
     icon:  Github,
   },
   {
-    href:  "https://twitter.com/yourhandle",
+    href:  "https://twitter.com/windasan",
     label: "Twitter / X",
-    handle:"@yourhandle",
+    handle:"@windasan",
     icon:  Twitter,
   },
   {
-    href:  "https://linkedin.com/in/yourname",
+    href:  "https://linkedin.com/in/cyborged",
     label: "LinkedIn",
-    handle:"linkedin.com/in/yourname",
+    handle:"linkedin.com/in/cyborged",
     icon:  Linkedin,
   },
 ] as const;

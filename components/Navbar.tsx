@@ -95,10 +95,11 @@ export function Navbar() {
         >
 
           {/* ── Logo / Name ───────────────────────────────────────────── */}
-          <Link
+         <Link
             href="/"
             className={[
-              "group flex items-center gap-2",
+              // 1. Ubah gap-2 menjadi gap-0 (atau hapus class gap sepenuhnya)
+              "group flex items-center gap-0.5", 
               "text-sm font-semibold tracking-tight text-primary",
               "transition-opacity duration-150 hover:opacity-70",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
@@ -109,15 +110,18 @@ export function Navbar() {
             {/* Monogram mark */}
             <span
               className={[
+                // 2. Jika kotaknya dirasa mengganggu kedempetan teks, 
+                // kamu bisa mengatur padding atau merubah tampilan kotak ini.
+                // Tapi untuk sekarang, kita biarkan saja format kotaknya.
                 "flex h-6 w-6 items-center justify-center rounded-md",
-                "bg-primary text-surface text-xs font-bold",
+                "bg-primary text-surface text-s font-bold",
                 "transition-transform duration-200 group-hover:scale-95",
               ].join(" ")}
               aria-hidden
             >
-              Y
+              Cy
             </span>
-            <span className="hidden sm:inline">Your Name</span>
+            <span className="hidden sm:inline">borged</span>
           </Link>
 
           {/* ── Desktop nav links ─────────────────────────────────────── */}
