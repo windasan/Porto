@@ -20,19 +20,18 @@ import {
   Calendar
 } from "lucide-react";
 
-// ── Data Fetching: 3 Proyek Terbaru (Work) ───────────────────────────────────
-async function getHomeProjects() {
+import type { Project, Post } from '@/lib/types';
+
+async function getHomeProjects(): Promise<Project[]> {
   const supabase = createClient();
   const { data } = await supabase
     .from("projects")
     .select("*")
     .order("year", { ascending: false })
     .limit(3);
-  return data ?? [];
+  return (data ?? []) as Project[];
 }
-
-// ── Data Fetching: 3 Artikel Terbaru (Blog) ──────────────────────────────────
-async function getLatestPosts() {
+async function getLatestPosts(): Promise<Post[]> {
   const supabase = createClient();
   const { data } = await supabase
     .from("posts")
@@ -40,7 +39,7 @@ async function getLatestPosts() {
     .eq("published", true)
     .order("created_at", { ascending: false })
     .limit(3);
-  return data ?? [];
+  return (data ?? []) as Post[];
 }
 
 function formatDate(date: string) {
