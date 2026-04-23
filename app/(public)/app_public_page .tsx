@@ -17,21 +17,10 @@ import {
   ArrowRight, 
   Github, 
   ArrowUpRight, 
-  Calendar,
-  Award,
+  Calendar
 } from "lucide-react";
-import { CertificateGallery } from "@/components/CertificateGallery"; // <-- Import komponen baru
-import type { Project, Post, Certificate } from '@/lib/types';
 
-async function getHomeCertificates(): Promise<Certificate[]> {
-  const supabase = createClient();
-  const { data } = await supabase
-    .from("certificates")
-    .select("*")
-    .order("issued_at", { ascending: false })
-    .limit(3);
-  return (data ?? []) as Certificate[];
-}
+import type { Project, Post } from '@/lib/types';
 
 async function getHomeProjects(): Promise<Project[]> {
   const supabase = createClient();
@@ -64,7 +53,6 @@ function formatDate(date: string) {
 export default async function HomePage() {
   const projects = await getHomeProjects();
   const posts = await getLatestPosts();
-  const certificates =await getHomeCertificates(); 
 
   return (
     // Tambahkan overflow-x-hidden di sini untuk mencegah scroll horizontal di mobile
@@ -238,24 +226,9 @@ export default async function HomePage() {
           </div>
         </section>
 
-      {/* ── 4. LICENSES & CERTIFICATIONS ─────────────────────────────────── */}
-      <section id="certificates" className="scroll-mt-20">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">Licenses & Certifications</h2>
-            <p className="text-neutral-600 dark:text-neutral-500 text-sm">Pencapaian, lisensi, dan sertifikasi profesional.</p>
-          </div>
-          <Link href="/certificates" className="hidden sm:flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-medium text-sm">
-            See All <ArrowRight size={16} />
-          </Link>
-        </div>
-
-        <CertificateGallery certificates={certificates} />
-      </section>
-
-
-              
+        {/* ── 4. ABOUT SECTION ──────────────────────────────────────────────── */}
        
+
       </div>
     </div>
   );

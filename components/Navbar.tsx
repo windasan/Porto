@@ -30,8 +30,10 @@ const NAV_LINKS = [
   { href: "/",           label: "Home"       },
   { href: "/experience", label: "Experience" },
   { href: "/work",       label: "Work"       },
+  { href: "/certificates",    label: "Certificates"    },
   { href: "/blog",       label: "Blog"       },
   { href: "/contact",    label: "Contact"    },
+  
 ] as const;
 
 /* ── Component ──────────────────────────────────────────────────────────── */

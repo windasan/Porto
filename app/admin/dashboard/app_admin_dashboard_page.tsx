@@ -9,8 +9,7 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-// Tambahkan Award di import lucide-react
-import { Briefcase, FolderKanban, FileText, ArrowRight, Eye, Award } from "lucide-react";
+import { Briefcase, FolderKanban, FileText, ArrowRight, Eye } from "lucide-react";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 async function getStats() {
@@ -21,25 +20,20 @@ async function getStats() {
     { count: projectCount    },
     { count: postCount       },
     { count: publishedCount  },
-    { count: certificateCount }, // <-- 1. Tambahkan untuk sertifikat
   ] = await Promise.all([
     supabase.from("experiences").select("*", { count: "exact", head: true }),
     supabase.from("projects")  .select("*", { count: "exact", head: true }),
     supabase.from("posts")     .select("*", { count: "exact", head: true }),
     supabase.from("posts")     .select("*", { count: "exact", head: true }).eq("published", true),
-    supabase.from("certificates").select("*", { count: "exact", head: true }), // <-- 2. Query tabel certificates
   ]);
 
   return {
-    experiences:  experienceCount ?? 0,
-    projects:     projectCount    ?? 0,
-    posts:        postCount       ?? 0,
-    published:    publishedCount  ?? 0,
-    certificates: certificateCount ?? 0, // <-- 3. Kembalikan nilainya
+    experiences: experienceCount ?? 0,
+    projects:    projectCount    ?? 0,
+    posts:       postCount       ?? 0,
+    published:   publishedCount  ?? 0,
   };
 }
-
-
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default async function AdminDashboardPage() {
@@ -64,16 +58,6 @@ export default async function AdminDashboardPage() {
       count:       stats.projects,
       unit:        "projects",
     },
-    // <-- 4. Tambahkan menu Certificates di sini
-    {
-      href:        "/admin/dashboard/certificates", 
-      publicHref:  "/certificates",                 
-      label:       "Certificates",
-      description: "Manage your certifications and achievements.",
-      icon:        Award,
-      count:       stats.certificates,
-      unit:        "certificates",
-    },
     {
       href:        "/admin/dashboard/blog",
       publicHref:  "/blog",
@@ -84,10 +68,10 @@ export default async function AdminDashboardPage() {
       unit:        "posts",
     },
   ] as const;
-  
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-2xl">
+
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="mb-10">
         <h1 className="text-2xl font-bold tracking-tight text-primary">
@@ -99,61 +83,48 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* ── Stat cards ─────────────────────────────────────────────────── */}
-      {/* 5. Ubah grid-cols menjadi sm:grid-cols-2 lg:grid-cols-4 agar pas 4 kotak */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-3">
         <StatCard label="Experiences" value={stats.experiences} icon={Briefcase} />
         <StatCard label="Projects"    value={stats.projects}    icon={FolderKanban} />
-        <StatCard label="Certificates" value={stats.certificates} icon={Award} /> {/* <-- Card Baru */}
         <StatCard label="Posts"       value={`${stats.published}/${stats.posts}`} icon={FileText} />
       </div>
-
-      
 
       {/* ── Section cards ──────────────────────────────────────────────── */}
       <div className="mt-8 space-y-3">
         {SECTIONS.map(({ href, publicHref, label, description, icon: Icon, count, unit }) => (
           <div
             key={href}
-            className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-border bg-surface-raised p-5 hover:border-primary/30 transition-colors"
+            className="flex items-center justify-between rounded-2xl border border-border bg-surface-raised px-5 py-4"
           >
             <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-overlay text-muted group-hover:text-primary transition-colors">
-                <Icon size={18} strokeWidth={1.75} />
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-overlay text-muted">
+                <Icon size={15} strokeWidth={1.75} aria-hidden />
               </div>
               <div>
-                <h2 className="text-base font-semibold text-primary">{label}</h2>
-                <p className="text-sm text-muted">{description}</p>
+                <p className="text-sm font-medium text-primary">{label}</p>
+                <p className="text-xs text-muted">{description}</p>
               </div>
             </div>
-
-            <div className="flex items-center gap-4">
-              <div className="text-right hidden sm:block">
-                <p className="text-lg font-semibold text-primary">{count}</p>
-                <p className="text-xs text-muted uppercase tracking-wider">{unit}</p>
-              </div>
-              
-              <div className="h-10 w-px bg-border hidden sm:block"></div>
-
-              <div className="flex items-center gap-2">
-                {/* View public page link */}
-                <Link
-                  href={publicHref}
-                  target="_blank"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted hover:text-primary hover:border-primary transition-all"
-                  aria-label={`View public ${label} page`}
-                  title="View public page"
-                >
-                  <Eye size={13} strokeWidth={1.75} aria-hidden />
-                </Link>
-                {/* Edit link */}
-                <Link
-                  href={href}
-                  className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-primary transition-all"
-                >
-                  Manage
-                  <ArrowRight size={11} strokeWidth={2} aria-hidden />
-                </Link>
-              </div>
+            <div className="flex items-center gap-2">
+              {/* Public view link */}
+              <Link
+                href={publicHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted hover:text-primary hover:border-primary transition-all"
+                aria-label={`View public ${label} page`}
+                title="View public page"
+              >
+                <Eye size={13} strokeWidth={1.75} aria-hidden />
+              </Link>
+              {/* Edit link */}
+              <Link
+                href={href}
+                className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-primary transition-all"
+              >
+                Manage
+                <ArrowRight size={11} strokeWidth={2} aria-hidden />
+              </Link>
             </div>
           </div>
         ))}
@@ -178,9 +149,11 @@ function StatCard({
     <div className="rounded-2xl border border-border bg-surface-raised p-5">
       <div className="flex items-center justify-between">
         <p className="text-xs text-muted">{label}</p>
-        <Icon size={13} strokeWidth={1.75} className="text-muted" />
+        <Icon size={13} strokeWidth={1.75} className="text-muted" aria-hidden />
       </div>
-      <p className="mt-3 text-2xl font-bold text-primary">{value}</p>
+      <p className="mt-2 text-2xl font-bold tabular-nums text-primary">
+        {value}
+      </p>
     </div>
   );
 }

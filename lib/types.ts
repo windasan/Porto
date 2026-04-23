@@ -62,6 +62,19 @@ export interface Post {
   updated_at:   string;
 }
 
+/* -- Certificates                  -----*/
+export interface Certificate {
+  id: string;
+  title: string;
+  issuer: string;
+  issued_at: string;
+  description?: string; // Tambahkan ini
+  credential_url?: string;
+  image_url?: string;
+  created_at: string;
+  updated_at?: string;
+}
+
 /* ── Supabase Database type stub ─────────────────────────────────────────
  * Replace with the generated output of:
  *   npx supabase gen types typescript --project-id <id> > lib/types/database.ts

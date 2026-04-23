@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { href: "/admin/dashboard/experience", label: "Experience",  icon: Briefcase       },
   { href: "/admin/dashboard/work",       label: "Work",        icon: FolderKanban    },
   { href: "/admin/dashboard/blog",       label: "Blog",        icon: FileText        },
+  { href: "/admin/dashboard/certificates",       label: "Certificates",        icon: FileText        },
 ] as const;
 
 interface AdminSidebarProps {
